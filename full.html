@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viora Visuals</title>
+    <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet">
+  <!-- Clash Display (assumed to be available locally or via custom import) -->
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500&display=swap" rel="stylesheet">
+  
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+  <style>
+        html {
+  scroll-behavior: smooth;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+        body{
+             margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+        }
+        .body1 {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Satoshi', Arial, sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
+    radial-gradient(circle at 90% 90%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
+    #fff;
+  color: #222;
+  position: relative;
+  overflow-x: hidden;
+}
+
+    .flip-vertical {
+  display: inline-block;
+  transform: rotate(180deg) translateY(0.5px); /* Adjust 4px as needed */
+  vertical-align: middle;
+}
+
+
+    /* Logo */
+    .logo {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 32px;
+      font-weight: 500;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 0.02em;
+      letter-spacing: -0.015em;
+      position: absolute;
+      top: 28px;
+      left: 40px;
+      z-index: 11;
+      pointer-events: none;
+    }
+    .letter {
+      display: inline-block;
+      position: relative;
+    }
+    .o-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .o-base {
+      z-index: 1;
+    }
+    .star {
+      position: absolute;
+      font-size: 0.35em;
+      color: #1a1a1a;
+      pointer-events: none;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+    .lambda svg {
+      vertical-align: middle;
+      display: inline-block;
+      width: 18px;
+      height: 24px;
+      stroke: #1a1a1a;
+      stroke-width: 2;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+
+
+    /* Navigation */
+    .nav {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 38px;
+      left: 0;
+      z-index: 10;
+      
+    }
+    .nav-inner {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      pointer-events: auto;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      font-size: 1.08rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: #222;
+      pointer-events: auto;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #9439BB;
+    }
+    @keyframes pop {
+  0%   { transform: scale(1);}
+  60%  { transform: scale(1.08);}
+  100% { transform: scale(1);}
+}
+
+    .talk-btn {
+      position: absolute;
+      right: 0;
+      top: -10px;
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      pointer-events: auto;
+    }
+    .talk-btn:hover {
+  background: #9439BB;
+  animation: pop 0.3s cubic-bezier(.77,0,.18,1);
+}
+
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .headline {
+      font-size: 3.5rem;
+      font-weight: 600;
+      line-height: 1.1;
+      margin-top: 80px;
+      margin-bottom: 40px;
+      color: #222;
+      letter-spacing: -0.04em;
+    }
+
+    /* Circles */
+    .circles {
+      position: relative;
+      width: 480px;
+      height: 280px;
+      margin: 0 auto;
+      margin-top: 5px;
+      margin-left:35%;
+    }
+    .circle-back {
+      position: absolute;
+      left: 0;
+      top: 0px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 32px solid #DDB7EB;
+      background: transparent;
+      opacity: 0.5;
+      z-index: 1;
+      box-sizing: border-box;
+    }
+    .circle-front {
+      position: absolute;
+      left: 140px;
+      top: 0;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: #9439BB;
+      z-index: 2;
+      box-shadow: 0 8px 32px #984fd633;
+    }
+
+    /* Bottom Texts */
+    .bottom-left {
+      position: absolute;
+      left: 40px;
+      bottom: 60px;
+      font-size: 1.08rem;
+      font-weight: 500;
+      color: #222;
+      letter-spacing: 0.01em;
+      text-align: left;
+      line-height: 1.4;
+    }
+    .bottom-right {
+      position: absolute;
+      right: 50px;
+      bottom: 60px;
+      font-size: 1.08rem;
+      font-weight: 500;
+      color: #222;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .arrow {
+  font-size: 1.1em;
+  margin-left: 3px;
+  display: inline-block;
+  transform: rotate(-45deg) translateY(-1px);
+  animation: arrow-move 1.2s cubic-bezier(.77,0,.18,1) infinite;
+}
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .logo {
+    font-size: 24px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+  }
+
+  .nav {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .talk-btn {
+    position: relative;
+    margin-top: 60px;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    align-self: center;
+  }
+
+  .hero {
+    padding: 20px 20px;
+    text-align: center;
+  }
+
+  .headline {
+    font-size: 2.2rem;
+    margin-top: 40px;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  .circles {
+  width: 300px;
+  height: 180px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-back,
+.circle-front {
+  width: 180px;
+  height: 180px;
+  border-width: 20px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+  .bottom-left,
+  .bottom-right {
+    font-size: 0.9rem;
+    position: absolute;
+    bottom: 30px;
+    display: flex;
+    align-items: center;
+  }
+
+  .bottom-left {
+    left: 20px;
+    max-width: 80%;
+  }
+
+  .bottom-right {
+    right: 20px;
+    gap: 5px;
+    flex-direction: row;
+  }
+
+  .arrow {
+    font-size: 1em;
+  }
+}
+
+
+/* meet the team*/
+.body2 {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(270deg, #ffffff, #fdf4ff, #f3e1fb, #fdf4ff, #ffffff);
+  
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+
+  font-family: 'Satoshi', Arial, sans-serif;
+
+  color: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Keyframes to shift gradient smoothly */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+
+    .main-wrap {
+      display: flex;
+      width: 100vw;
+      max-width: 1100px;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+img.floating {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+
+    .left-col {
+      flex: 1;
+      min-width: 300px;
+      max-width: 420px;
+      padding: 0 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: justify;
+    }
+
+    .left-col h1 {
+      font-size: 3rem;
+      line-height: 1.05;
+      margin: 0 0 12px 0;
+      font-weight: 700;
+    }
+
+    .left-col .team {
+      color: #9439BB;
+      font-weight: 700;
+    }
+
+    .left-col p {
+      margin: 0;
+      margin-top: 18px;
+      font-size: 1.01rem;
+      color: #222;
+      line-height: 1.7;
+      max-width: 370px;
+    }
+
+    .right-col {
+      flex: 1;
+      min-width: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 100px;
+      position: relative;
+    }
+
+    .carousel-arrow {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      transition: filter 0.2s;
+      user-select: none;
+      height: 340px;
+    }
+
+    .carousel-arrow img {
+      width: 32px;
+      height: 32px;
+      display: block;
+      filter: grayscale(0.2) brightness(0.8);
+      transition: filter 0.2s;
+    }
+
+    .carousel-arrow:hover img {
+      filter: drop-shadow(0 0 2px #9C4DFF) grayscale(0);
+    }
+
+    .carousel {
+      position: relative;
+      width: 340px;
+      height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel img {
+      width: 320px;
+      height: 350px;
+      object-fit: contain;
+      transition: opacity 0.5s ease-in-out;
+    }
+    /* Why us*/
+    .body3 {
+      background:
+    radial-gradient(circle at 90% 90%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
+    #fff;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: 'Satoshi', Arial, sans-serif;
+      color: #222;
+    }
+
+    .container {
+      display: flex;
+      max-width: 1200px;
+      padding: 40px 30px;
+      background: none;
+      border-radius: 18px;
+      align-items: flex-start;
+      gap: 64px;
+    }
+
+    .left {
+      flex: 1.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      min-width: 340px;
+      max-width: 440px;
+    }
+
+    .why-heading {
+      margin-bottom: 18px;
+      text-align: left;
+      line-height: 1.05;
+    }
+
+    .why-heading .why {
+      color: #984fd6;
+      font-size: 3.5rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.08em;
+      letter-spacing: -2px;
+      font-family: 'Satoshi', Arial, sans-serif;
+    }
+
+    .why-heading .choose {
+      color: #222;
+      font-size: 3.5rem;
+      font-weight: 600;
+      display: block;
+      letter-spacing: -2px;
+      font-family: 'Satoshi', Arial, sans-serif;
+    }
+
+    .left p {
+      font-size: 1.13rem;
+      line-height: 1.6;
+      margin-bottom: 32px;
+      text-align: justify;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .left button {
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 32px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'Satoshi', Arial, sans-serif;
+      font-weight: 700;
+      margin-top: 10px;
+      box-shadow: 0 2px 8px rgba(80,40,120,0.04);
+      text-align: justify;
+    }
+    .left button:hover {
+      background: #984fd6;
+    }
+
+    .right1 {
+      flex: 1.5;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 350px;
+      
+    }
+
+    .accordion {
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: none;
+      border: 1.5px solid #222;
+      transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+      margin-bottom: 0;
+      
+      position: relative;
+    }
+    .accordion.active {
+      background: #DDB7EB;
+      border: 2px solid #DDB7EB;
+      box-shadow: 0 4px 24px rgba(152, 79, 214, 0.08);
+    }
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 28px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      outline: none;
+      transition: background 0.2s;
+      color: #222;
+      font-family: 'Satoshi', Arial, sans-serif;
+    }
+    .accordion.active .accordion-header {
+  position: relative;
+}
+
+
+.accordion.active .accordion-header::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 4px;
+  width: 95%;         /* Adjust this value for the desired line length */
+  height: 1px;
+  background: #222;
+  border-radius: 2px;
+}
+
+
+    
+    .accordion-header .icon {
+      font-size: 1.35rem;
+      font-weight: bold;
+      color: #222;
+      border-radius: 50%;
+      border: 1.5px solzid #222;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+      background: #fff;
+    }
+    .accordion.active .accordion-header .icon {
+      color: #222;
+      border-color: #DDB7EB;
+      background: #DDB7EB;
+    }
+    .accordion-content {
+      display: none;
+      padding: 0 28px 18px 28px;
+      font-size: 1.05rem;
+      color: #222;
+      background: none;
+      animation: fadeIn 0.3s;
+      font-weight: 500;
+      margin-top: -2px;
+    }
+    .accordion.active .accordion-content {
+      display: block;
+      background: none;
+    }
+    .accordion.active .accordion-header {
+      color: #222;
+      background: none;
+    }
+    .accordion:not(.active) .accordion-header:hover {
+      background: #f6f0fa;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+     .viora-footer {
+  background: linear-gradient(90deg, #f7f0fa 0%, #f3e6f7 100%);
+  padding: 40px 0;
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 250;
+  color: #3b2b4a;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  flex: 1 1 220px;
+}
+
+.footer-logo {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.footer-copyright {
+  font-size: 0.95rem;
+  color: #7d6c96;
+  margin-bottom: 18px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 18px;
+}
+
+.footer-social a img {
+  width: 32px;
+  height: 32px;
+  background: #ffff;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s;
+  filter: invert(55%) sepia(11%) saturate(300%) hue-rotate(230deg) brightness(1.1);
+}
+
+.footer-social a:hover img {
+  background: #d3b6f2;
+}
+
+.footer-links {
+  display: flex;
+  gap: 60px;
+  flex: 2 1 320px;
+}
+
+.footer-links > div {
+  min-width: 140px;
+}
+
+.footer-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #3b2b4a;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: #3b2b4a;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #a478e8;
+}
+
+.footer-updates {
+  flex: 1 1 220px;
+  min-width: 220px;
+}
+
+#footer-form {
+  display: flex;
+  margin-top: 10px;
+}
+
+#footer-email {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #e0c8f7;
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+  background: #faf6fd;
+  color: #3b2b4a;
+  outline: none;
+}
+
+#footer-email::placeholder {
+  color: #bba1d6;
+  font-size: 1rem;
+}
+
+#footer-form button {
+  background: #e0c8f7;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  padding: 0 18px;
+  cursor: pointer;
+  color: #a478e8;
+  font-size: 1.3rem;
+  transition: background 0.2s;
+}
+
+#footer-form button:hover {
+  background: #cdb1f2;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 30px;
+    align-items: stretch;
+  }
+  .footer-links {
+    gap: 30px;
+  }
+  .footer{
+    padding: 40px 0;
+  }
+}
+
+.body4 {
+    margin: 0;
+    font-family: 'Satoshi', sans-serif;
+  font-weight: 250;
+   
+    
+  }
+  
+  .container {
+    display: flex;
+    padding: 40px;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .left {
+    max-width: 300px;
+    
+  }
+  
+  .left h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  
+  .highlight {
+    color: #9c4dcc;
+    font-weight: bold;
+  }
+  
+  .left p {
+    font-size: 15px;
+    color: #333;
+    text-align: justify;
+  }
+  
+  .right {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid black;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    width: 400px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input, select, textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1.5px solid #ccc;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  
+  textarea {
+    resize: none;
+    height: 100px;
+  }
+  
+  button {
+    background-color: #1f1f1f;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+
+  
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 24px 8px;
+        gap: 36px;
+      }
+      .left, .right {
+        min-width: 0;
+        max-width: 100%;
+      }
+      .right {
+        width: 100%;
+      }
+      .why-heading .why,
+      .why-heading .choose {
+        font-size: 2.1rem;
+      }
+      .container {
+        padding: 12px 2vw;
+      }
+      .left button {
+        width: 100%;
+      }
+      .main-wrap {
+        flex-direction: column;
+        min-width: 0;
+      }
+
+      .left-col, .right-col {
+        max-width: 100vw;
+        padding: 0 12px;
+      }
+
+      .right-col {
+        padding-left: 0;
+      }
+
+      .carousel {
+        width: 220px;
+        height: 220px;
+      }
+
+      .carousel img {
+        width: 220px;
+        height: 230px;
+      }
+
+      .carousel-arrow {
+        height: 220px;
+      }
+      .headline {
+        font-size: 3rem;
+        margin-top: 90px;
+      }
+      .circles {
+        width: 230px;
+        height: 120px;
+      }
+      .circle-back {
+        width: 120px;
+        height: 120px;
+        border-width: 14px;
+        left: 0;
+        top: 20px;
+      }
+      .circle-front {
+        width: 110px;
+        height: 110px;
+        left: 60px;
+        top: 0;
+      }
+      .bottom-left, .bottom-right {
+        font-size: 0.96rem;
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+      }
+      .logo {
+        font-size: 24px;
+        top: 20px;
+        left: 18px;
+      }
+      .headline {
+        font-size: 1.3rem;
+        margin-top: 60px;
+      }
+      .nav {
+        top: 14px;
+      }
+      .nav-inner {
+        max-width: 99vw;
+      }
+      .circles {
+        width: 130px;
+        height: 60px;
+      }
+      .circle-back {
+        width: 60px;
+        height: 60px;
+        border-width: 8px;
+        left: 0;
+        top: 10px;
+      }
+      .circle-front {
+        width: 55px;
+        height: 55px;
+        left: 32px;
+        top: 0;
+      }
+      .bottom-left, .bottom-right {
+        font-size: 0.82rem;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+      }
+      .logo {
+        font-size: 18px;
+        top: 14px;
+        left: 12px;
+      }
+    }
+    .bottom-texts {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  gap: 10px;
+  z-index: 10;
+}
+/* Bottom Texts */
+    .bottom-left {
+      position: absolute;
+      left: 40px;
+      bottom: 40px;
+      font-size: 1.08rem;
+      font-weight: 500;
+      color: #222;
+      letter-spacing: 0.01em;
+      text-align: left;
+      line-height: 1.4;
+    }
+    .bottom-right {
+      position: absolute;
+      right: 50px;
+      bottom: 48px;
+      font-size: 1.08rem;
+      font-weight: 500;
+      color: #222;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Hamburger Style */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.bar {
+  height: 3px;
+  width: 100%;
+  background-color: #222;
+  border-radius: 2px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+    position: absolute;
+    top: 24px;
+    right: 20px;
+  }
+
+.bottom-right {
+  position: absolute;
+  right: 50%;
+  bottom: 10px;
+  transform: translateX(50%);
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: #222;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  width: 170px;
+}
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+}
+
+.body5 {
+      
+  background: radial-gradient(circle at 90% 90%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
+    #fff;;
+      margin: 0;
+      padding: 0;
+      font-family: 'Satoshi', Arial, sans-serif;
+      color: #222;
+      padding:50px;
+    }
+    .container1 {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      max-width: 1200px;
+      
+      padding: 0 16px;
+      position: relative;
+      z-index: 2;
+      gap: 32px;
+    }
+    .left-section {
+      flex: 1;
+      max-width: 410px;
+      margin-right: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .left-section h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.2em;
+      letter-spacing: -0.02em;
+    }
+    .left-section .highlight {
+      color: #9439BB;
+      font-size: 2.6rem;
+      font-weight: 700;
+      display: block;
+      letter-spacing: -0.02em;
+    }
+    .left-section p {
+      font-size: 1.1rem;
+      margin: 28px 0 36px 0;
+      color: #222;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+    .learn-btn {
+      display: inline-block;
+      padding: 14px 90px;
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 38px;
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .learn-btn:hover {
+      background: #9439BB;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      flex: 2;
+      min-width: 0;
+      width: 100%;
+      padding-top: 4px;
+    }
+    .service-card {
+      background: #fff;
+      border: 1.5px solid black;
+      border-radius: 22px;
+      min-width: 0;
+      min-height: 140px;
+      margin-left: 1px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.08rem;
+      font-weight: 500;
+      color: #111;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(156,90,255,0.04);
+      position: relative;
+      cursor: pointer;
+      transition: box-shadow 0.2s, background 0.3s, color 0.3s, transform 0.3s;
+      overflow: hidden;
+      outline: none;
+      box-sizing: border-box;
+      transform: scale(0.98);
+      z-index: 1;
+      opacity: 0;
+    }
+    .service-card.animated {
+      animation: fadeInUp 0.85s cubic-bezier(.4,1.4,.6,1) forwards;
+    }
+    .service-card:hover,
+    .service-card:focus-within {
+      box-shadow: 0 6px 32px rgba(156,90,255,0.12);
+      background: #000;
+      color: #fff;
+      transform: scale(1.07);
+      z-index: 10;
+    }
+    .card-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 44px;
+      height: 44px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+    }
+    .service-card:hover .card-icon,
+    .service-card:focus-within .card-icon {
+      opacity: 1;
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(0.98);
+      }
+    }
+     .card-title {
+      font-size: 1.3rem;
+      font-weight:650;
+      color: inherit;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+      transition: opacity 0.3s, color 0.3s;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 28px 14px;
+    }
+    .service-card .card-desc {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      padding: 28px 14px;
+      padding-right: 54px;
+      background: transparent;
+      color: #fff;
+      font-size: 1.01rem;
+      line-height: 1.5;
+      font-weight: 400;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, color 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 22px;
+      text-align: center;
+      z-index: 3;
+    }
+    .service-card:hover .card-desc,
+    .service-card:focus-within .card-desc {
+      opacity: 1;
+      pointer-events: auto;
+      color: #fff;
+    }
+    .service-card:hover .card-title,
+    .service-card:focus-within .card-title {
+      opacity: 0;
+      color: #fff;
+    }
+    .rocket-path-container {
+      position: absolute;
+      left: 0;
+      bottom: 70px;
+      width: 100%;
+      height: 130px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .service-card:focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    /* Responsive tweaks for tablets */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        align-items: flex-start;
+        max-width: 100vw;
+        margin: 40px 0 0 0;
+        padding: 0 8px;
+      }
+      .left-section {
+        max-width: 100%;
+        margin-right: 0;
+        margin-bottom: 28px;
+      }
+      .services-grid {
+        gap: 16px;
+        padding: 0;
+      }
+    }
+    /* Responsive tweaks for mobile */
+    @media (max-width: 600px) {
+      .container {
+        margin: 24px 0 0 0;
+        padding: 0 2vw;
+      }
+      .left-section h1, .left-section .highlight {
+        font-size: 1.5rem;
+      }
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 0;
+      }
+      .service-card {
+        min-width: 0;
+        font-size: 0.96rem;
+        min-height: 110px;
+      }
+      .service-card .card-title, .service-card .card-desc {
+        padding: 14px 6px;
+      }
+      .card-icon {
+        width: 28px;
+        top: 6px;
+        right: 6px;
+      }
+    }
+   
+/* === CSS Animations === */
+/* Back circle twirls in from left */
+@keyframes enter-twirl {
+  0% {
+    opacity: 0;
+    transform: translateX(-120px) scale(0.6) rotate(-360deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0deg);
+  }
+}
+
+/* Front circle blooms in from right */
+@keyframes enter-bloom {
+  0% {
+    opacity: 0;
+    transform: translateX(120px) scale(0);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(0) scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Switch positions animations */
+@keyframes switch-places {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(140px); }
+  50% { transform: translateX(0); }
+  75% { transform: translateX(140px); }
+}
+
+@keyframes switch-places-reverse {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-140px); }
+  50% { transform: translateX(0); }
+  75% { transform: translateX(-140px); }
+}
+.circle-back {
+  opacity: 0;
+  animation: enter-twirl 1.5s cubic-bezier(.77,0,.18,1) forwards;
+}
+
+.circle-front {
+  opacity: 0;
+  animation: enter-bloom 1.5s 1.5s cubic-bezier(.77,0,.18,1) forwards;
+}
+
+/* When switching, ensure opacity stays at 1 and animation loops infinitely */
+.circle-back.switch {
+  opacity: 1;
+  animation: switch-places 1s ease-in-out 0.5s 0.5 alternate;
+  animation-fill-mode: forwards;
+}
+
+.circle-front.switch {
+  opacity: 1;
+  animation: switch-places-reverse 1s ease-in-out 0.5s 0.5 alternate;
+  animation-fill-mode: forwards;
+}
+
+
+.fade-in-bottom {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1.2s 2.5s cubic-bezier(.77,0,.18,1) forwards;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.explore-cta {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.explore-cta:hover .arrow {
+  animation: arrow-hover-move 0.6s cubic-bezier(.77,0,.18,1);
+}
+
+@keyframes arrow-hover-move {
+  0% { transform: translateX(0) rotate(-45deg) translateY(-1px);}
+  60% { transform: translateX(12px) rotate(-45deg) translateY(-1px);}
+  100% { transform: translateX(0) rotate(-45deg) translateY(-1px);}
+}
+
+@keyframes arrow-move {
+  0%   { transform: rotate(-45deg) translateY(-1px) translateX(0); }
+  50%  { transform: rotate(-45deg) translateY(-1px) translateX(10px); }
+  100% { transform: rotate(-45deg) translateY(-1px) translateX(0); }
+}
+
+    
+    </style>
+</head>
+<body>
+    <div class="body1" id="home">
+    <div class="logo">
+  <img src="./images/VIORA2.svg">
+      </div>
+      
+      
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+        <!-- Hamburger Menu -->
+<div class="hamburger" onclick="toggleMenu()">
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
+
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#team">Team</a>
+        <a href="#whyus">Why&nbsp;us</a>
+      </div>
+      <button class="talk-btn">Talk to us</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="headline">
+      We Build Brands<br>
+      That People Remember.
+    </div>
+    <div class="circles">
+      <div class="circle-back"></div>
+      <div class="circle-front"></div>
+    </div>
+  </section>
+
+  <!-- Bottom Texts -->
+   <div class="bottom-texts">
+  <div class="bottom-left fade-in-bottom">
+    Turning Vision into<br>
+    Visuals
+  </div>
+  
+  <div class="bottom-right explore-cta">
+    EXPLORE <span class="arrow">&#8594;</span>
+  </div>
+  </div>
+  
+</div>
+  <!--our services-->
+  <div class="body5" id="services">
+<div class="container1">
+    <div class="left-section">
+      <br>
+      <h1>Our <span class="highlight">Services</span></h1>
+      <p>We create fun, fresh, and fearless designs for brands that don't do<br>boring.</p>
+      <a href="#contact" class="learn-btn">Learn more</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card" tabindex="0">
+        <div class="card-title">Social Media</div>
+        <div class="card-desc">Thumb-stopping content that help your brand stay loud, fun, and relevant.</div>
+        <img src="./images/fourth.png" alt="Social Media Icon" class="card-icon" />
+      </div>
+      <div class="service-card" tabindex="0">
+        <div class="card-title">UIUX</div>
+        <div class="card-desc">Smooth, scroll-happy experiences your users will actually love using.</div>
+        <img src="./images/third.png" alt="UIUX Icon" class="card-icon" />
+      </div>
+      <div class="service-card" tabindex="0">
+        <div class="card-title">Logo Design</div>
+        <div class="card-desc">Logos that aren't just pretty – they're iconic and unforgettable.</div>
+        <img src="./images/first.png" alt="Logo Design Icon" class="card-icon" />
+      </div>
+      <div class="service-card" tabindex="0">
+        <div class="card-title">Branding</div>
+        <div class="card-desc">Shape your brand's personality with bold visuals and a vibe that sticks.</div>
+        <img src="./images/second.png" alt="Branding Icon" class="card-icon" />
+      </div>
+    </div>
+  </div>
+<img class="img" src="https://c.animaapp.com/mazhxxneZKc7Q5/img/group-2.png" width="700px" alt="Decorative curved line" />
+</div>
+  <!--Meet the team-->
+  <div class="body2" id="team">
+    <div class="main-wrap">
+    <div class="left-col">
+      <h1>Meet<br>The <span class="team">team</span></h1>
+      <p>
+        Viora Visuals started as a bunch of creative friends who just loved making things look awesome – from cool logos to killer social media content. We’re young, vibrant, and a little bit playful because we believe great design shouldn’t be boring or stiff. We formed Viora Visuals to bring fresh energy to the creative world, helping brands stand out with bold visuals and fun vibes. <br> Our mission? To make your brand look and feel as unique and alive as you are — because creativity is all about having fun while making an impact.
+      </p>
+    </div>
+    <br>
+    <br>
+    <div class="right-col">
+      <button class="carousel-arrow" id="prevBtn">
+        <img src="./images/Vectorleft.svg" alt="Previous" class="floating">
+      </button>
+      <div class="carousel">
+        <img id="carouselImage" src="./images/rez.png" alt="Team Member" class="floating">
+      </div>
+      <button class="carousel-arrow" id="nextBtn">
+        <img src="./images/Vectorright.svg" alt="Next" class="floating">
+      </button>
+    </div>
+  </div>
+</div>
+<!--Why choose us-->
+<div class="body3" id="whyus">
+    <div class="container">
+    <div class="left">
+      <div class="why-heading">
+        <span class="why">Why</span>
+        <span class="choose">choose us?</span>
+      </div>
+      <p>
+        Because at Viora Visuals, we’re more than just a creative agency – we’re a squad of passionate creators ready to bring your brand to life with fresh ideas, bold vibes, and a whole lot of personality. We work hard, play harder, and make sure your brand doesn’t just blend in but straight-up stands out. When you roll with us, you get the full energy, the fun, and the magic that only a tight-knit team can deliver. Let’s make something epic together!
+      </p>
+      <button onclick="nextpage()">Have more questions?</button><br>
+    </div>
+    <div class="right1">
+      <div class="accordion" id="acc-1">
+        <div class="accordion-header">
+          What kind of services does Viora Visuals offer?
+          <span class="icon">+</span>
+        </div>
+        <div class="accordion-content">
+          We’re all about branding, UI/UX design, logo creation, and social media management — basically, everything you need to make your brand pop and connect with people.
+        </div>
+      </div>
+      <div class="accordion" id="acc-2">
+        <div class="accordion-header">
+          How do you keep your designs fresh and unique?
+          <span class="icon">+</span>
+        </div>
+        <div class="accordion-content">
+          Our team thrives on creativity and innovation. We constantly explore trends, experiment with styles, and tailor every project to your brand’s unique vibe.
+        </div>
+      </div>
+      <div class="accordion" id="acc-3">
+        <div class="accordion-header">
+          Can you help with social media strategy too?
+          <span class="icon">+</span>
+        </div>
+        <div class="accordion-content">
+          Absolutely! We don’t just design — we strategize, plan, and manage your social media presence to maximize engagement and growth.
+        </div>
+      </div>
+      <div class="accordion" id="acc-4">
+        <div class="accordion-header">
+          How involved will I be in the design process?
+          <span class="icon">+</span>
+        </div>
+        <div class="accordion-content">
+          You’re part of the journey! We keep you in the loop, gather your feedback, and make sure the final result is something you love.
+        </div>
+      </div>
+      <div class="accordion" id="acc-5">
+        <div class="accordion-header">
+          What makes Viora Visuals different?
+          <span class="icon">+</span>
+        </div>
+        <div class="accordion-content">
+          It’s all about our energy, passion, and dedication. We’re a tight-knit team that genuinely cares about making your brand shine in a way that’s bold, memorable, and uniquely you.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Talk to me-->
+<div class="body4" id="contact">
+<div class="full">
+    <div class="container">
+      <div class="left"><br><br><br>
+        <h1><span class="highlight">Talk</span> to us <br></h1>
+        <p>
+          Got questions? Ideas? Just wanna chat about how we can make your brand shine?
+          Hit us up! The Viora Visuals team is always ready to listen, brainstorm, and
+          bring those awesome vibes to life. We’re here to help you level up and make
+          something unforgettable – so, let’s talk!
+        </p>
+      </div>
+      <div class="right">
+        <form id="contactForm">
+          <label>Full Name</label>
+          <input type="text" id="fullName" placeholder="Viora Visuals" required />
+
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="vioravisuals@example.com" required />
+
+          <label>Phone Number</label>
+          <input type="tel" id="phone" placeholder="+91 0000000000" required />
+
+          <label>Subject</label>
+          <select id="subject">
+            <option>General Inquiry</option>
+            <option>Support</option>
+            <option>Partnership</option>
+          </select>
+
+          <label>Message</label>
+          <textarea id="message" placeholder="Your message here..." required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  <footer class="viora-footer">
+    
+  <div class="footer-content">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="./images/VIORA.svg">
+      </div>
+      <div class="footer-copyright">
+        Copyright © 2025 VioraVisuals<br>
+        All rights reserved
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/vioravisuals?igsh=MTR6eDMxaGswa2lkMQ==" aria-label="Instagram"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="" /></a>
+        <a href="#" aria-label="Behance"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/behance.svg" alt="" /></a>
+        <a href="#" aria-label="Twitter"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="" /></a>
+        <a href="https://www.linkedin.com/in/viora-visuals-aa8569361/" aria-label="Linkedin"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="" /></a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div>
+        <div class="footer-title">Company</div>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#whyus">FAQ</a></li>
+          <li><a href="#contact">Contact us</a></li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li><a href="./legal.html">Legal policy</a></li>
+          <li><a href="./cookies.html">Cookie policy</a></li>
+          <li><a href="./privacy.html">Privacy policy</a></li>
+          <li><a href="./termsofservice.html">Terms of service</a></li>
+        </ul>
+      </div>
+    </div>
+    
+  
+</footer>
+</div>
+</div>
+ <script>
+    // 1. Firebase config (use your correct details)
+const firebaseConfig = {
+  apiKey: "AIzaSyB6nQOE4yAq6R7eY1yZmLXJyFwHMvP9lcE",
+  authDomain: "talk-to-us-5f1f4.firebaseapp.com",
+  databaseURL: "https://talk-to-us-5f1f4-default-rtdb.firebaseio.com",
+  projectId: "talk-to-us-5f1f4",
+  storageBucket: "talk-to-us-5f1f4.appspot.com",
+  messagingSenderId: "219723184876",
+  appId: "1:219723184876:web:7bf6aceab3badfcafe03c9"
+};
+
+
+    // 2. Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // 3. Test write to ensure Firebase connection
+    db.ref('test').set({hello: "world"})
+      .then(() => console.log("Test write succeeded"))
+      .catch((error) => console.error("Test write failed:", error));
+
+    // 4. Form submission handler
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      console.log("Form submit handler triggered"); // Debug
+
+      // Get form values
+      const fullName = document.getElementById('fullName').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+
+      // Save to Firebase
+      const newContactRef = db.ref('contacts').push();
+      newContactRef.set({
+        fullName: fullName,
+        email: email,
+        phone: phone,
+        subject: subject,
+        message: message,
+        submittedAt: new Date().toISOString()
+      }).then(() => {
+        alert("Message sent successfully!");
+        document.getElementById('contactForm').reset();
+      }).catch((error) => {
+        alert("Error sending message: " + error.message);
+        console.error("Firebase write error:", error);
+      });
+    });
+  </script>
+  <script>
+    const images = [
+      './images/rez.png',
+      './images/ruti.png',
+      './images/leo.png',
+      './images/ira.png'
+    ];
+
+    let currentIndex = 0;
+    const carouselImage = document.getElementById('carouselImage');
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      carouselImage.src = images[currentIndex];
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      carouselImage.src = images[currentIndex];
+    });
+  </script>
+  <script>
+    function nextpage() {
+      // Replace with your desired link
+      window.location.href = "#contact";
+    }
+  </script>
+  
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.querySelector('.circle-back').classList.add('switch');
+        document.querySelector('.circle-front').classList.add('switch');
+      }, 3000); // 1.5s + 1.5s = 3s
+    });
+    </script>
+
+    <script>
+         // Accordion functionality
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', function() {
+        const parent = this.parentElement;
+        // Close all accordions except the clicked one
+        document.querySelectorAll('.accordion').forEach(acc => {
+          if (acc !== parent) {
+            acc.classList.remove('active');
+            acc.querySelector('.icon').textContent = '+';
+          }
+        });
+        // Toggle the clicked accordion
+        parent.classList.toggle('active');
+        // Change icon to minus (true minus sign) when open, plus when closed
+        const icon = this.querySelector('.icon');
+        if (parent.classList.contains('active')) {
+            icon.textContent = '−'; // Unicode minus sign U+2212
+        } else {
+          icon.textContent = '+';
+        }
+      });
+    });
+
+    </script>
+    <script>
+  function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    navLinks.classList.toggle('show');
+  }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add the animation class and stagger delays
+      document.querySelectorAll('.service-card').forEach((card, i) => {
+        card.classList.add('animated');
+        card.style.animationDelay = (0.18 + i * 0.16) + 's';
+        // Remove the animation class after animation ends so hover works perfectly
+        card.addEventListener('animationend', function() {
+          card.classList.remove('animated');
+          card.style.animationDelay = '';
+          card.style.opacity = 1; // Ensure visible in case of quick hover
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
