@@ -26,7 +26,7 @@
         body{
             font-family: 'Satoshi', Arial, sans-serif;
   font-weight: 250;
-  background: linear-gradient(to right, #ffffff, #fdf4ff, #fdf4ff,#f3e1fb);
+  background-color: #ffff;
         }
         .container{
             padding: 50px;
@@ -165,14 +165,23 @@
   background: #cdb1f2;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .footer-content {
     flex-direction: column;
-    gap: 30px;
+    gap: 10px;
     align-items: stretch;
+    font-size: 0.95rem;
   }
   .footer-links {
-    gap: 30px;
+    gap: 10px;
+    font-size: 0.95rem;
+  }
+  .viora-footer{
+    padding: 40px;
+    margin: 0;
+  }
+  .footer-links a{
+    font-size: 0.85rem;
   }
 }
     </style>
@@ -206,7 +215,7 @@
   <div class="footer-content">
     <div class="footer-brand">
       <div class="footer-logo">
-        <img src="VIORA.svg">
+        <img src="./images/VIORA.svg">
       </div>
       <div class="footer-copyright">
         Copyright © 2025 VioraVisuals<br>
@@ -214,8 +223,8 @@
       </div>
       <div class="footer-social">
         <a href="https://www.instagram.com/vioravisuals?igsh=MTR6eDMxaGswa2lkMQ==" aria-label="Instagram"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="" /></a>
-        <a href="#" aria-label="Behance"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/behance.svg" alt="" /></a>
-        <a href="#" aria-label="Twitter"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="" /></a>
+        <a href="https://www.behance.net/vioravisuals" aria-label="Behance"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/behance.svg" alt="" /></a>
+        <a href="https://twitter.com/VioraVisuals" aria-label="Twitter"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="" /></a>
         <a href="https://www.linkedin.com/in/viora-visuals-aa8569361/" aria-label="Linkedin"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="" /></a>
       </div>
     </div>
@@ -223,10 +232,10 @@
       <div>
         <div class="footer-title">Company</div>
         <ul>
-          <li><a href="./index.html">Services</a></li>
-          <li><a href="./index.html">Team</a></li>
-          <li><a href="./index.html">FAQ</a></li>
-          <li><a href="./index.html">Contact us</a></li>
+          <li><a href="./index.html#services">Services</a></li>
+          <li><a href="./index.html#team">Team</a></li>
+          <li><a href="./index.html#whyus">FAQ</a></li>
+          <li><a href="./index.html#contact">Contact us</a></li>
         </ul>
       </div>
       <div>
