@@ -3,41 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Document</title>
     <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500&display=swap" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
-     
-      html {
-  height: 100%;
-  
-}
-
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: auto; /* No scroll bar on body */
-}
-
-.body1 {
-  min-height: 100vh;
-  overflow-y: hidden; /* Only scroll bar is here */
-  margin: 0;
-  padding: 0;
-  font-family: 'Satoshi', Arial, sans-serif;
-  background:
+      .body1{
+        background:
     radial-gradient(circle at 10% 10%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
     radial-gradient(circle at 90% 90%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
     #fff;
-  color: #222;
-  position: relative;
-}
-
-    
-    
+      }
  /* Responsive */
     @media (max-width: 900px) {
       .headline {
@@ -45,7 +23,7 @@ body {
         margin-top: 90px;
       }
   .circles {
-    width: 60px;
+    width: 90px;
     height: 60px;
     position: relative;
     margin: 0 auto;
@@ -57,18 +35,18 @@ body {
     position: absolute;
     width: 60px;
     height: 60px;
-    border-width: 0px;
-    left:0;
+    border-width: 8px;
+    left: 0;
     bottom: 0; /* align to the bottom */
-    top: 0;
+    top: auto;
   }
   .circle-front {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     left: 32px;
     bottom: 0; /* align to the bottom */
-    top: 0;
+    top: auto;
   }
 
       .bottom-left {
@@ -104,7 +82,7 @@ body {
         top: 14px;
       }
       .nav-inner {
-        max-width: 99vw;
+        max-width: 99%;
       }
   .circles {
     width: 90px;
@@ -122,7 +100,7 @@ body {
     border-width: 8px;
     left: 0;
     bottom: 0; /* align to the bottom */
-    top: 0;
+    top: auto;
   }
   .circle-front {
     position: absolute;
@@ -130,7 +108,7 @@ body {
     height: 55px;
     left: 32px;
     bottom: 0; /* align to the bottom */
-    top: 0;
+    top: auto;
   }
 
       .bottom-left {
@@ -158,8 +136,11 @@ html {
   box-sizing: border-box;
 }
 
-
-
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 /*Intro page*/
 
 /* Meet the team background */
@@ -173,6 +154,7 @@ html {
   align-items: center;
   justify-content: center;
   width: 100%;
+  padding:10%;
 }
 
 /* Keyframes */
@@ -193,6 +175,7 @@ html {
   justify-content: center;
   padding: 40px 20px;
   margin: 0 auto;
+  margin-left: 10%;
 }
 
 /* Floating image animation */
@@ -211,11 +194,13 @@ img.floating {
   flex: 1;
   min-width: 280px;
   max-width: 420px;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: justify;
+  
+  
 }
 
 .left-col h1 {
@@ -233,10 +218,12 @@ img.floating {
 
 .left-col p {
   margin-top: 18px;
-  font-size: 1.01rem;
-  line-height: 1.7;
+  font-size: 1.1rem;
+    line-height: 1.5;
+      font-weight: 500;
   max-width: 100%;
   color: #222;
+ 
 }
 
 /* Right Column */
@@ -248,7 +235,7 @@ img.floating {
   align-items: center;
   justify-content: center;
   position: relative;
-  margin-left: 80px;
+
 }
 
 /* Carousel */
@@ -293,6 +280,11 @@ img.floating {
 
   .left-col h1 {
     font-size: 2rem;
+    margin-right: 25%;
+
+  }
+  .left-col p{
+    max-width:80%;
   }
 
   .carousel {
@@ -334,7 +326,7 @@ img.floating {
 }
 .section2 {
       min-height: 100vh;
-      
+
       color: #222;
       font-family: 'Satoshi', Arial, sans-serif;
       margin: 0;
@@ -343,6 +335,7 @@ img.floating {
       flex-direction: column;
       align-items: center;
       padding: 2rem 0 0 0;
+      background: linear-gradient(to bottom, white 50%,#eee1f4 70%, #f1d8fc 80%, #f6e2ff 100%);
     }
 
     .container2 {
@@ -352,9 +345,10 @@ img.floating {
       justify-content: flex-start;
       max-width: 1200px;
       margin: 60px auto 0 auto;
-      padding: 0 16px;
+      
       gap: 3rem;
       width: 100%;
+      margin-left: 5%;
     }
 
     .left-section {
@@ -363,11 +357,11 @@ img.floating {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      margin-left: 80px;
+      margin-left: 7%;
       margin-top: -40px;
     }
     .left-section h1 {
-      font-size: 2.6rem;
+      font-size: 3rem;
       font-weight: 700;
       line-height: 1.1;
       margin-bottom: 0.2em;
@@ -382,12 +376,15 @@ img.floating {
       letter-spacing: -0.02em;
     }
     .left-section p {
+      font-family: 'Satoshi', Arial, sans-serif;
       font-size: 1.1rem;
       margin: 28px 0 36px 0;
       color: #222;
       line-height: 1.5;
       font-weight: 500;
+      
     }
+    
     .learn-btn,
     .left-section button {
       display: inline-block;
@@ -504,13 +501,14 @@ img.floating {
         width: 100%;
         margin-bottom: 1.1rem;
         padding-left: 0;
+        margin-left: 25%;
       }
       .left-section h1, .left-section .highlight, .left-section h1 span {
         font-size: 2.2rem;
       }
       .left-section p {
         font-size: 1rem;
-        margin-right:100px;
+        margin-right: 100px;
       }
       .learn-btn,
       .left-section button {
@@ -523,11 +521,11 @@ img.floating {
         gap: 0.7rem !important;
         width: 100%;
         justify-items: start;
-        margin-left: 0;
+        margin-left: 10%;
       }
       .item {
         width: 100% !important;
-        max-width: 98vw;
+        max-width: 98%;
         margin-left: 0;
         min-height: 6.5rem;
         border-radius: 18px;
@@ -559,11 +557,13 @@ img.floating {
     .container {
       display: flex;
       max-width: 1200px;
-      padding: 40px 30px;
+      
       background: none;
       border-radius: 18px;
       align-items: flex-start;
       gap: 64px;
+      margin-left:3%;
+      padding-top: 30px;
     }
 
     .left {
@@ -573,11 +573,11 @@ img.floating {
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      min-width: 340px;
-      max-width: 420px;
+      
+      max-width: 390px;
       margin: 0;
       margin-top: 18px;
-      margin-left: 50px;
+      margin-left: 8%;
     }
 
     .why-heading {
@@ -585,37 +585,41 @@ img.floating {
       text-align: left;
       font-size: 1.01rem;
       line-height: 1.1;
+      margin-left: 8%;
     }
 
     .why-heading .why {
       color: #984fd6;
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 700;
       display: block;
       margin-bottom: 0.08em;
       letter-spacing: -2px;
       font-family: 'Satoshi', Arial, sans-serif;
-      margin-left: 40px;
+      
     }
 
     .why-heading .choose {
       color: #222;
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 700;
       display: block;
       letter-spacing: -2px;
       font-family: 'Satoshi', Arial, sans-serif;
-      margin-left: 40px;
+      
     }
 
     .left p {
-      font-size: 1.01rem;
+      
       color: #222;
-      line-height: 1.7;
+      
       margin-bottom: 32px;
-      margin-left: 40px;
+      
       text-align: justify;
-     font-weight: 420;
+     font-size: 1.1rem;
+    line-height: 1.5;
+      font-weight: 500;
+      margin-left: 8%;
     
     }
 
@@ -646,12 +650,13 @@ img.floating {
       gap: 20px;
       min-width: 350px;
       max-width: 490px;
-      margin-left: 90px;
-      
+      margin-left: 6%;
+      margin-top: 30px;
     }
 
     .accordion {
       border-radius: 16px;
+      overflow: hidden;
       background: transparent;
       box-shadow: none;
       border: 1.5px solid #222;
@@ -774,7 +779,7 @@ img.floating {
     font-size: 2rem;
     letter-spacing: -1px;
     text-align: center;
-    margin-left: 10px;
+    margin-left: 5px;
   }
 
   .left p {
@@ -841,10 +846,12 @@ img.floating {
   font-family: 'Satoshi', Arial, sans-serif;
   margin: 0px;
   color: #3b2b4a;
+  padding: 20px;
+  
 }
 
 .footer-content {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   gap: 40px;
@@ -961,16 +968,18 @@ img.floating {
     flex-wrap: wrap;
     margin-bottom: 10px;
     margin-top: 20px;
+    margin-left: 5%;
   }
   
   .left1 {
-    max-width: 300px;
-    margin-right: 180px;
+    min-width: 400px;
+    max-width: 420px;
+    margin-left: 40px;
   }
   
   .left1 h1 {
-    font-size: 2.5em;
-    margin-left: 60px;
+    font-size: 3em;
+    
     margin-bottom: 30px;
     line-height: 1.2;
   }
@@ -984,10 +993,12 @@ img.floating {
     font-size: 15px;
     color: #333;
     text-align: justify;
-    margin-left: 60px;
+    
     font-size: 1.01rem;
     font-weight: 500;
     line-height: 1.5 ;
+    max-width: 360px;
+    
   }
   
   .right2 {
@@ -997,7 +1008,8 @@ img.floating {
     border: 1px solid black;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
     width: 500px;
-    margin-right: 60px;
+    margin-right: 40px;
+   
   }
   
   form {
@@ -1047,13 +1059,15 @@ img.floating {
 }
 
 .left1 h1 {
-  margin-left: 0;
+  margin-right: 25%;
   text-align: center;
+
 }
 
 .left1 p {
   margin-left: 0;
   text-align: left;
+  max-width: 80%;
 }
 
   }
@@ -1061,7 +1075,19 @@ img.floating {
 
 
   /* starting of try*/
-
+  .body1 {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Satoshi', Arial, sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
+    radial-gradient(circle at 90% 90%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
+    #fff;
+  color: #222;
+  position: relative;
+  overflow-x: hidden;
+}
 
     .flip-vertical {
   display: inline-block;
@@ -1163,7 +1189,7 @@ img.floating {
     position: absolute;
     top: 56px;
     left: 0;
-    width: 100vw;
+    width: 100%;
     background: #fff;
     z-index: 100;
     padding: 12px 0;
@@ -1355,15 +1381,13 @@ img.floating {
         width: 120px;
         height: 120px;
         border-width: 14px;
-        left:20px;
-        top: 0px;
+        left: 0;
+        top: 20px;
       }
       .circle-front {
-        width: 120px;
-        height: 120px;
-                border-width: 14px;
-
-        left: 80px;
+        width: 110px;
+        height: 110px;
+        left: 60px;
         top: 0;
       }
       .bottom-left {
@@ -1399,7 +1423,7 @@ img.floating {
         top: 14px;
       }
       .nav-inner {
-        max-width: 99vw;
+        max-width: 99%;
       }
       .circles {
         width: 130px;
@@ -1409,13 +1433,13 @@ img.floating {
         width: 60px;
         height: 60px;
         border-width: 8px;
-        left: 20px;
-        top: 0px;
+        left: 0;
+        top: 10px;
       }
       .circle-front {
-        width: 60px;
-        height: 60px;
-        left: 52px;
+        width: 55px;
+        height: 55px;
+        left: 32px;
         top: 0;
       }
       .bottom-left {
@@ -1553,7 +1577,7 @@ img.floating {
     align-items: center;
     gap: 5px; /* less gap for mobile */
     position: static;
-    width: 100vw;
+    width: 100%;
     background: transparent;
     padding: 0;
     font-size: 0.01rem; /* smaller font */
@@ -1603,6 +1627,11 @@ img.floating {
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.6s ease-out;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  padding: 20px;
+
 }
 
 .section.reveal {
@@ -1830,6 +1859,7 @@ img.floating {
         </form>
       </div>
     </div>
+    </section>
   <footer class="viora-footer">
     
   <div class="footer-content">
@@ -1871,7 +1901,7 @@ img.floating {
   
 </footer>
 </div>
-    </section>
+    
     <script>
     const images = [
       './images/rez.png',
@@ -1944,8 +1974,24 @@ function toggleMenu() {
 
 
 </script>
+<script>
+const sections = document.querySelectorAll('.section');
 
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('reveal');
+      observer.unobserve(entry.target); // Remove this line if you want to re-animate on scroll back
+    }
+  });
+}, {
+  threshold: 0.15, // Adjust if needed (0.15 = 15% visible)
+});
 
+sections.forEach(section => {
+  observer.observe(section);
+});
+</script>
 
 
 
@@ -2002,25 +2048,6 @@ function toggleMenu() {
       });
     });
   </script>
-    <script>
-        const sections = document.querySelectorAll('.section');
-
-const observer = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('reveal');
-      observer.unobserve(entry.target); // Remove this line if you want to re-animate on scroll back
-    }
-  });
-}, {
-  threshold: 0.15, // Adjust if needed (0.15 = 15% visible)
-});
-
-sections.forEach(section => {
-  observer.observe(section);
-});
-
-    </script>
 </body>
 
 </body>
