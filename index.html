@@ -9,12 +9,35 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
-      .body1{
-        background:
+     
+      html {
+  height: 100%;
+  
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto; /* No scroll bar on body */
+}
+
+.body1 {
+  min-height: 100vh;
+  overflow-y: hidden; /* Only scroll bar is here */
+  margin: 0;
+  padding: 0;
+  font-family: 'Satoshi', Arial, sans-serif;
+  background:
     radial-gradient(circle at 10% 10%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
     radial-gradient(circle at 90% 90%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
     #fff;
-      }
+  color: #222;
+  position: relative;
+}
+
+    
+    
  /* Responsive */
     @media (max-width: 900px) {
       .headline {
@@ -135,11 +158,8 @@ html {
   box-sizing: border-box;
 }
 
-body, html {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
+
+
 /*Intro page*/
 
 /* Meet the team background */
@@ -632,7 +652,6 @@ img.floating {
 
     .accordion {
       border-radius: 16px;
-      overflow: hidden;
       background: transparent;
       box-shadow: none;
       border: 1.5px solid #222;
@@ -1042,19 +1061,7 @@ img.floating {
 
 
   /* starting of try*/
-  .body1 {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  font-family: 'Satoshi', Arial, sans-serif;
-  background:
-    radial-gradient(circle at 10% 10%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
-    radial-gradient(circle at 90% 90%, #ddb7eb 0%, #ddb7eb33 40%, transparent 80%),
-    #fff;
-  color: #222;
-  position: relative;
-  overflow-x: hidden;
-}
+
 
     .flip-vertical {
   display: inline-block;
